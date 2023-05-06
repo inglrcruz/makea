@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components';
+import { Provider } from 'react-redux'
+import { persistor, store } from './src/redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import Navigation from './src/Navigation'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default () => (
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <Navigation />
+      </ApplicationProvider>
+    </PersistGate>
+  </Provider>
+)
