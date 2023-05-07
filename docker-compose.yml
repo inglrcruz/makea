@@ -1,33 +1,20 @@
 version: "3.8"
 
 services:
-  #frontend:
-  #  build: ./frontend
-  #  ports:
-  #    - "3000:3000"
-  #  environment:
-  #    REACT_APP_URL: ${REACT_APP_URL}
-  #    REACT_APP_NAME: ${REACT_APP_NAME}
-  #    REACT_APP_VERSION: ${REACT_APP_VERSION}
-  #  depends_on:
-  #    - backend
-  #  volumes:
-  #    - ./frontend:/app
-  #    - '/app/node_modules'
 
-  #backend:
-  #  build: ./backend
-  #  ports:
-  #    - "${API_PORT}:3001"
-  #  environment:
-  #    JWT_SECRET: ${JWT_SECRET}
-  #    API_PORT: ${API_PORT}
-  #    DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgreSQL:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public"
-  #  depends_on:
-  #    - postgreSQL
-  #  volumes:
-  #    - ./backend:/api
-  #    - '/api/node_modules'
+  backend:
+    build: ./backend
+    ports:
+      - "${API_PORT}:3001"
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      API_PORT: ${API_PORT}
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgreSQL:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public"
+    depends_on:
+      - postgreSQL
+    volumes:
+      - ./backend:/api
+      - '/api/node_modules'
 
   postgreSQL:
     image: postgres
@@ -43,5 +30,4 @@ services:
 
 volumes:
   postgreSQL: 
-  #frontend:
-  #backend:
+  backend:

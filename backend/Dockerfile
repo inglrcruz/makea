@@ -1,18 +1,15 @@
-# Base image
-FROM node:18.16.0-alpine
+FROM node:18-alpine
 
-# Working directory
 WORKDIR /api
 
-# Copy necessary files
 COPY package*.json ./
+
+RUN yarn
+
 COPY . .
 
-# Install dependencies
-RUN npm install
-RUN pm install prisma --save-dev
-RUN npx prisma
-RUN npx prisma generate
+RUN yarn prisma generate
 
-# Start command
-CMD ["npm", "run", "start:dev"]
+RUN yarn build
+
+CMD [ "node", "dist/main.js" ]
