@@ -34,7 +34,7 @@ $ sudo docker-compose up --build
 - http://18.209.236.146:3001/v1/
 - http://18.209.236.146:3001/v1/docs/
 
-# Demo Rest API:
+# Run APP with android:
 ```sh
 npm run android
 ```
