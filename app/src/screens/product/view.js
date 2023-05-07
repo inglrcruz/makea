@@ -1,28 +1,43 @@
 import React from 'react';
 import { Layout, Text } from '@ui-kitten/components';
-import { STLayout } from '../../styles/Container';
-import { View, Image, ScrollView } from 'react-native';
+import { container } from '../../styles/base';
+import { View, Image, ScrollView, TouchableHighlight } from 'react-native';
+import { currency } from '../../library/format';
 
 function ViewScreen(props) {
 
-    const { } = props
+    const { selected, setSelected, data } = props
 
     return (
-        <Layout style={STLayout.base}>
-            <Text category='h6'>Products</Text>
-            <Layout style={{ flexDirection: 'row' }}>
-                <View>
-                    <Image style={{ width: 300, height: 300, borderRadius: 5 }} source={{ uri: "https://http2.mlstatic.com/D_NQ_NP_806138-MCO50213022736_062022-O.webp" }} />
-                </View>
-                <View style={{ padding: 5, marginLeft: 2, backgroundColor: "#f4f4f8", borderRadius: 5, height: 300 }}>
-                    <ScrollView>
-                        <Image style={{ width: 80, height: 80, marginBottom: 5, borderRadius: 5 }} source={{ uri: "https://static9.depositphotos.com/1281876/1153/i/450/depositphotos_11536895-stock-photo-snowy-vintage-chair.jpg" }} />
-                        <Image style={{ width: 80, height: 80, marginBottom: 5, borderRadius: 5 }} source={{ uri: "https://st4.depositphotos.com/22220764/38995/i/600/depositphotos_389951714-stock-photo-modern-retro-composition-living-room.jpg" }} />
-                        <Image style={{ width: 80, height: 80, marginBottom: 5, borderRadius: 5 }} source={{ uri: "https://st4.depositphotos.com/22220764/28427/i/600/depositphotos_284277712-stock-photo-stylish-vintage-decor-spacious-flat.jpg" }} />
-                        <Image style={{ width: 80, height: 80, marginBottom: 5, borderRadius: 5 }} source={{ uri: "https://http2.mlstatic.com/D_NQ_NP_806138-MCO50213022736_062022-O.webp" }} />
-                    </ScrollView>
-                </View>
-            </Layout>
+        <Layout style={container.base}>
+            {
+                data &&
+                <ScrollView>
+                    <Text category='h6' style={{ marginBottom: 10 }}>{data.name}</Text>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Image style={{ width: "100%", height: 350, borderRadius: 5 }} source={(selected) ? { uri: selected } : require('../../../assets/not-picture.webp')} />
+                    </View>
+                    <View style={{ padding: 5, marginLeft: 2, backgroundColor: "#f4f4f8", borderRadius: 5 }}>
+                        <ScrollView horizontal={true}>
+                            {
+                                data.pictures && data.pictures.map((row, key) => {
+                                    return (
+                                        <TouchableHighlight onPress={() => setSelected(row.url)} underlayColor="none" key={key}>
+                                            <Image style={{ width: 80, height: 80, borderRadius: 5, margin: 5 }} source={{ uri: row.url }} />
+                                        </TouchableHighlight>
+                                    )
+                                })
+                            }
+                        </ScrollView>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                        <Text category='p2'>COP</Text>
+                        <Text category='h6'>{currency(data.price)}</Text>
+                    </View>
+                    <Text category='p2' style={{ marginTop: 10, fontWeight: "bold" }}>Descripción</Text>
+                    <Text category='p2' style={{ marginTop: 5 }}>{data.description}</Text>
+                </ScrollView>
+            }
         </Layout>
     );
 }

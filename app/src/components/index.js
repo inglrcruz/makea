@@ -1,4 +1,6 @@
-import SearchFieldComponent from "./searchField"
-import ProductCardComponent from "./productCard"
+import ArticleItemComponent from "./articleItem"
+import InfoComponent from "./info"
+import WelcomeComponent from "./welcome"
+import LoadingComponent from "./loading"
 
-export { SearchFieldComponent, ProductCardComponent }
+export { ArticleItemComponent, InfoComponent, WelcomeComponent, LoadingComponent }

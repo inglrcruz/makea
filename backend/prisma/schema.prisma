@@ -10,24 +10,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  uid    Int     @default(autoincrement()) @id
-  device String  @unique
-  movil String  @unique
-  fullName  String
-  email String  @unique
+model auth {
+  aid    Int    @default(autoincrement()) @id
+  device String
+  createdAt DateTime @default(now())
 }
 
-model Catalogue {
+model categories {
   cid    Int     @default(autoincrement()) @id
-  name String
-  description String
-  price  String?
-  pictures Photo[]
+  name   String
+  articles articles[]
 }
 
-model Photo {
+model articles {
+  aid         Int       @default(autoincrement()) @id
+  name        String
+  description String
+  price       Float
+  pictures    photos[]
+  categoryId  Int
+  category    categories @relation(fields: [categoryId], references: [cid])
+}
+
+model photos {
   pid      Int      @default(autoincrement()) @id
-  file     String
-  cid    Catalogue    @relation(fields: [pid], references: [cid])
+  url     String
+  articleId  Int
+  article    articles @relation(fields: [articleId], references: [aid])
 }

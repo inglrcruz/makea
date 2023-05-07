@@ -1,33 +1,46 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { Card, Layout, Text } from '@ui-kitten/components';
-import { STLayout } from '../../styles/Container';
-import { ProductCardComponent } from '../../components';
+import { ScrollView, View } from 'react-native';
+import { Button, Input, Layout, Text } from '@ui-kitten/components';
+import { button, container } from '../../styles/base';
+import { ArticleItemComponent, LoadingComponent, WelcomeComponent, InfoComponent } from '../../components';
 
 function ViewScreen(props) {
 
-    const { } = props
-
-    const numbers = Array.from(Array(10), (_, i) => i + 1);
+    const { catalogue, global, handlerSearchByCategory, handlerSearch, search, category } = props
 
     return (
-        <Layout style={STLayout.base}>
-            <Text category='h4'>Ofertas de momento</Text>
-            <Layout style={Card.topContainer} level='1'>
-                <ScrollView horizontal={true} style={{ marginTop: 10 }}>
-                    {
-                        numbers.map((key) => (<ProductCardComponent key={key} data={ { 
-                            name: "Mueves MK01", 
-                            price: 20000,
-                            image: "https://http2.mlstatic.com/D_NQ_NP_806138-MCO50213022736_062022-O.webp"
-                        } } />))
-                    }
-                </ScrollView>
-            </Layout>
-
-        </Layout >
+        <Layout style={container.base}>
+            {
+                catalogue.categories &&
+                <>
+                    <Text category='h6' style={{ marginBottom: 5 }}>Categorias</Text>
+                    <View style={container.spaceBetween}>
+                        {
+                            catalogue.categories.map((row, key) => {
+                                return (
+                                    <Button key={key} style={button.spaceBetween} status={category === row.cid ? "warning" : 'basic'} onPress={() => handlerSearchByCategory(row.cid)}>
+                                        {row.name}
+                                    </Button>
+                                )
+                            })
+                        }
+                    </View>
+                </>
+            }
+            <Input style={{ width: "100%", marginTop: 10, display: (global?.error) ? "none" : "flex" }} placeholder='Buscar producto...' value={search} onChangeText={(text) => handlerSearch(text)} />
+            <ScrollView>
+                {
+                    catalogue.articles && catalogue.articles.map((row, key) => {
+                        return (<ArticleItemComponent key={key} data={row} />)
+                    })
+                }
+                {category === 0 && search === "" && <WelcomeComponent />}
+                {global?.loading && <LoadingComponent />}
+                {global?.error && <InfoComponent />}
+                {(catalogue?.articles && !catalogue.articles.length) && (category > 0 || search !== "") && <InfoComponent found={true} />}
+            </ScrollView>
+        </Layout>
     );
 }
-
 
 export default ViewScreen;

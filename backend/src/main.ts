@@ -19,8 +19,8 @@ async function bootstrap() {
 
   // Swagger setup
   const config = new DocumentBuilder()
-    .setTitle('Invoice System API')
-    .setDescription('Documentation for the Invoice System api.')
+    .setTitle('Makea API')
+    .setDescription('Documentation for the Makea api.')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

@@ -22,7 +22,7 @@ services:
   #  environment:
   #    JWT_SECRET: ${JWT_SECRET}
   #    API_PORT: ${API_PORT}
-  #    DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgreSQL:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+  #    DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgreSQL:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public"
   #  depends_on:
   #    - postgreSQL
   #  volumes:

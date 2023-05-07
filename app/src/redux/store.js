@@ -3,17 +3,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
 import { authSlice } from './states/auth'
+import { catalogueSlice } from './states/catalogue'
+import { globalSlice } from './states/global'
 
 const persistConfig = {
-    key: "makea",
+    key: "makeaRoot",
     version: 1,
     storage: AsyncStorage,
     // if you do not want to persist this part of the state
-    blacklist: []
+    blacklist: ['auth', 'catalogue']
 }
 
 const reducer = combineReducers({
-    auth: authSlice.reducer
+    auth: authSlice.reducer,
+    catalogue: catalogueSlice.reducer,
+    global: globalSlice.reducer
 })
 
 // this ensures your redux state is saved to persisted storage whenever it changes
