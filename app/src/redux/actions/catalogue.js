@@ -50,6 +50,7 @@ const getSearchArticle = (name) => async (dispatch, getState) => {
     const res = await get(`search-articles/${name}`, auth.token)
     dispatch(setActCatalogue({ articles: res.data }))
   } catch (error) {
+    dispatch(setActCatalogue({ articles: []}))
     dispatch(setActGlobal({ notFound: true }))
   } finally {
     dispatch(setActGlobal({ loading: false }))

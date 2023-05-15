@@ -6,7 +6,8 @@ import { ArticleItemComponent, LoadingComponent, WelcomeComponent, InfoComponent
 
 function ViewScreen(props) {
 
-    const { catalogue, global, handlerSearchByCategory, handlerSearch, search, category } = props
+    const { catalogue, global, handlerSearchByCategory, handlerSearch, search, category } = props, 
+            error = !global?.loading && (catalogue?.articles && !catalogue.articles.length) && (category > 0 || search !== "")
 
     return (
         <Layout style={container.base}>
@@ -30,14 +31,14 @@ function ViewScreen(props) {
             <Input style={{ width: "100%", marginTop: 10, display: (global?.error) ? "none" : "flex" }} placeholder='Buscar producto...' value={search} onChangeText={(text) => handlerSearch(text)} />
             <ScrollView>
                 {
-                    catalogue.articles && catalogue.articles.map((row, key) => {
+                    !global?.loading && catalogue.articles && catalogue.articles.map((row, key) => {
                         return (<ArticleItemComponent key={key} data={row} />)
                     })
                 }
                 {category === 0 && search === "" && <WelcomeComponent />}
                 {global?.loading && <LoadingComponent />}
                 {global?.error && <InfoComponent />}
-                {(catalogue?.articles && !catalogue.articles.length) && (category > 0 || search !== "") && <InfoComponent found={true} />}
+                {error && <InfoComponent found={true} />}
             </ScrollView>
         </Layout>
     );

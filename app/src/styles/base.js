@@ -17,7 +17,7 @@ export const container = StyleSheet.create({
     cardItem: {
         flexDirection: 'row', 
         marginTop: 10, 
-        borderColor: "#333", 
+        borderColor: "#e7eaf3", 
         borderWidth: 0.5, 
         borderRadius: 8, 
         padding: 5
