@@ -30,10 +30,6 @@ $ sudo docker-compose up --build
 - URL: http://localhost:3001/v1/
 - Swagger: http://localhost:3001/v1/docs/
 
-# Demo Rest API:
-- http://18.209.236.146:3001/v1/
-- http://18.209.236.146:3001/v1/docs/
-
 # Run APP with android:
 ```sh
 npm run android
