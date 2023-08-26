@@ -1,7 +1,7 @@
 # Makae
 
 ## Description
-Makae developed with the following technologies:
+Item catalog app developed with the following technologies:
 #### Back end
 - NestJS (Node v18.16.0)
 - PostgreSQL Prisma
